@@ -1,0 +1,52 @@
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@model MovieStore.Core.DTOs.LoginDto
+@inject SignInManager<MovieStore.Core.Models.User> SignInManager
+
+@{ ViewData["Title"] = "Giriş"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="col-md-4">
+    <section>
+        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Giriş yap.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Giriş yap</button>
+            </div>
+            <div class="form-group">
+                <p>
+                    <a asp-action="ForgotPassword">Şifremi Unuttum</a>
+                </p>
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Kayıt ol</a>
+                </p>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

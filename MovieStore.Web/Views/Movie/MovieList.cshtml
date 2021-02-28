@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MovieStore.Core.DTOs.MovieWithGenresDto>
+
+@{
+    ViewData["Title"] = "MovieList";
+}
+
+<h1>Movie List</h1>
+
+<p>
+    <a asp-action="NewMovie">New Movie</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genres)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plot)
+            </td>
+            <td>
+                @string.Join(", ",item.Genres.Select(x=>x.GenreName).ToList())
+            </td>
+            <td>
+                @Html.ActionLink("Detail", "UpdateMovie", new { id = item.Id }) 
+                @Html.ActionLink("Delete", "DeleteMovie", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
